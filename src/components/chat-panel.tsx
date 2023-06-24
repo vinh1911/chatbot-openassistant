@@ -1,4 +1,3 @@
-
 import { type UseChatHelpers } from 'ai/react';
 import { AiOutlineReload, AiOutlineSend } from 'react-icons/ai';
 import { BsStopCircle } from 'react-icons/bs';
@@ -24,7 +23,6 @@ export function ChatPanel({
   reload,
   isLoading,
 }: ChatPanelProps) {
-
   return (
     <div className="fixed inset-x-0 bottom-0">
       <div className="mx-auto sm:max-w-2xl sm:px-4">
