@@ -1,9 +1,7 @@
-import { useEnterSubmit } from '@/lib/hooks/use-enter-submit';
+
 import { type UseChatHelpers } from 'ai/react';
-import * as React from 'react';
 import { AiOutlineReload, AiOutlineSend } from 'react-icons/ai';
 import { BsStopCircle } from 'react-icons/bs';
-import Textarea from 'react-textarea-autosize';
 
 export interface ChatPanelProps
   extends Pick<
@@ -26,17 +24,15 @@ export function ChatPanel({
   reload,
   isLoading,
 }: ChatPanelProps) {
-  const { formRef, onKeyDown } = useEnterSubmit();
-  const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 bg-neutral-900">
+    <div className="fixed inset-x-0 bottom-0">
       <div className="mx-auto sm:max-w-2xl sm:px-4">
         <div className="flex h-10 items-center justify-center">
           {isLoading ? (
             <button
               type="button"
-              className="py-2.5 px-5 text-sm font-medium text-neutral-400 border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white rounded-lg inline-flex items-center"
+              className="py-2.5 px-5 mb-8 text-sm font-medium bg-neutral-900 text-neutral-400 border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white rounded-lg inline-flex items-center"
               onClick={() => stop()}
             >
               <BsStopCircle size={16} className="mr-2" />
@@ -46,7 +42,7 @@ export function ChatPanel({
             messages?.length > 0 && (
               <button
                 type="button"
-                className="py-2.5 px-5 text-sm font-medium text-neutral-400 border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white rounded-lg inline-flex items-center"
+                className="py-2.5 px-5 mb-8 text-sm bg-neutral-900 font-medium text-neutral-400 border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white rounded-lg inline-flex items-center"
                 onClick={() => reload()}
               >
                 <AiOutlineReload size={16} className="mr-2" />
@@ -55,21 +51,16 @@ export function ChatPanel({
             )
           )}
         </div>
-        <div className="space-y-4 border-t border-neutral-700 bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
-          <form onSubmit={handleSubmit} ref={formRef}>
+        <div className="space-y-4 border-t border-neutral-700 bg-neutral-900 px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
+          <form onSubmit={handleSubmit}>
             <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-8 sm:rounded-md sm:border sm:border-neutral-700 sm:px-12">
-              <Textarea
-                ref={inputRef}
-                tabIndex={0}
-                onKeyDown={onKeyDown}
-                rows={1}
-                value={input}
-                onChange={handleInputChange}
-                placeholder="Send a message."
-                spellCheck={false}
+              <input
                 className="text-white min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
+                value={input}
+                placeholder="Send a message."
+                onChange={handleInputChange}
               />
-              <div className="absolute right-0 top-4 sm:right-4">
+              <div className="absolute right-0 top-3 sm:right-4">
                 <button
                   type="submit"
                   className="text-neutral-400 border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center"
